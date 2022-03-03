@@ -1,15 +1,51 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react'
 import AddProduct from './components/AddProduct'
 import Grid from './components/Grid'
-import Item from './components/Item'
 import 'bootstrap/dist/css/bootstrap.css';
 
 
-const Tabla = ({pro,des,stock,pre,ru}) => {
+const Tabla = () => {
+ 
+  const [information, setInformation] = useState([]);
+
+  //useEffect nos permite ejecutar la funcion getInf solamente cuando se renderiza por primera vez 
+
+   useEffect( () => {
+    getInf();
+}, []) 
+
+  //cuando mandamos [] es una lista de dependencia, quiere decir como un array
+
+const getInf = async() => {
+    
+    const url='https://run.mocky.io/v3/c3d00cfc-825d-45a0-a1f3-c5b92d076371';
+    const resp =  await fetch( url );
+    const data = await resp.json();
+
+    const info = data.map( inf => {
+      
+        
+        return {
+            
+            id: inf.id,
+            pro: inf.name,
+            des: inf.description,
+            stock: inf.stock,
+            pre: inf.precio,
+            item: inf.item,
+
+        } 
+        
+    }) 
+
+    setInformation(info);
+
+}
 
   return (
     <>
     <div className='container'>
+      
     <table className='table table-bordered 
                       table-dark 
                       table-responsive'> 
@@ -23,20 +59,15 @@ const Tabla = ({pro,des,stock,pre,ru}) => {
            <th>Precio</th>
            <th>Rubro</th>
         </tr>
-        
-        {
-          <Grid></Grid>
-        }
     
       </thead>
       
       <tbody>
       
         {
-          <>
-          <Item /> 
-          </> 
+          <Grid productos={ information } />
         }
+        
         
       </tbody>
     
@@ -47,7 +78,7 @@ const Tabla = ({pro,des,stock,pre,ru}) => {
     <br />
     
    
-    <AddProduct />
+    <AddProduct productos={ information }  setProductos={ setInformation } />
 
     </div>
     
