@@ -42,6 +42,7 @@ const getInf = async() => {
 
 }
 
+
   return (
     <>
     <div className='container'>
@@ -53,11 +54,13 @@ const getInf = async() => {
       <thead>
         
         <tr>
+           <th>Id</th>
            <th>Producto</th>
            <th>Descripcion</th>
            <th>Stock</th>
            <th>Precio</th>
            <th>Rubro</th>
+           <th>Eliminar</th>
         </tr>
     
       </thead>
@@ -65,7 +68,7 @@ const getInf = async() => {
       <tbody>
       
         {
-          <Grid productos={ information } />
+          <Grid productos={ information } setProductos = { setInformation } />
         }
         
         

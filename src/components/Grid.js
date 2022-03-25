@@ -1,7 +1,7 @@
 import React from 'react'
 import Item from './Item';
 
-const Grid = ({ productos }) => {
+const Grid = ({ productos, setProductos }) => {
 
     return (
     <>
@@ -11,6 +11,8 @@ const Grid = ({ productos }) => {
                         <Item 
                             {...q}
                             key={ q.id }
+                            productos = { productos }
+                            setProductos = { setProductos }
                         />
                      )
             } 
